@@ -1,6 +1,60 @@
 import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 
-const Letter = ({ onContinue }) => {
+const Letter = ({ onContinue, audioSrc = '/letter.mp3' }) => {
+  const [isHeroImageLoaded, setIsHeroImageLoaded] = useState(false);
+  const audioRef = useRef(null);
+  const playTimeoutRef = useRef(null);
+
+  useEffect(() => {
+    audioRef.current = new Audio(audioSrc);
+    audioRef.current.loop = true;
+
+    return () => {
+      if (playTimeoutRef.current) {
+        clearTimeout(playTimeoutRef.current);
+      }
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+        audioRef.current = null;
+      }
+    };
+  }, [audioSrc]);
+
+  useEffect(() => {
+    if (!isHeroImageLoaded) return;
+    if (!audioRef.current) return;
+
+    playTimeoutRef.current = setTimeout(() => {
+      const a = audioRef.current;
+      if (!a) return;
+      const p = a.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(() => {});
+      }
+    }, 2000);
+
+    return () => {
+      if (playTimeoutRef.current) {
+        clearTimeout(playTimeoutRef.current);
+        playTimeoutRef.current = null;
+      }
+    };
+  }, [isHeroImageLoaded]);
+
+  const handleContinue = () => {
+    if (playTimeoutRef.current) {
+      clearTimeout(playTimeoutRef.current);
+      playTimeoutRef.current = null;
+    }
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+    onContinue();
+  };
+
   const shayari = `Wo achanak aa gayi
 Yun nazar ke saamne
 Jaise nikal aaya
@@ -72,6 +126,8 @@ Yun mulakat ho gayi💖`;
                   src="/eyes.jpg" 
                   alt="Her beautiful eyes" 
                   className="w-80 h-48 md:w-[32rem] md:h-64 mx-auto object-cover rounded-lg border-4 border-pink-300 shadow-lg"
+                  onLoad={() => setIsHeroImageLoaded(true)}
+                  onError={() => setIsHeroImageLoaded(true)}
                 />
               </motion.div>
             </motion.div>
@@ -120,7 +176,7 @@ Yun mulakat ho gayi💖`;
               transition={{ delay: 1.2 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={onContinue}
+              onClick={handleContinue}
               className="w-full py-3 px-6 bg-gradient-to-r from-pink-400 to-pink-500 text-white font-poppins font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
             >
               Tap to continue →
