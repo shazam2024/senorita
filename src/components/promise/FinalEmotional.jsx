@@ -22,14 +22,14 @@ const FinalEmotional = ({ name = 'Senorita', onNext }) => {
   return (
     <ScreenShell variant="cinematic">
       <div className="absolute inset-0">
-        <ParticleField count={22} type="glow" />
+        <ParticleField count={16} type="glow" />
       </div>
 
       <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: 'easeOut' }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
           className="glassmorphism rounded-3xl p-6 sm:p-8 md:p-12 border border-white/20"
           style={{
             boxShadow:
@@ -45,7 +45,7 @@ const FinalEmotional = ({ name = 'Senorita', onNext }) => {
             }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
             These are not just words…
             <br />

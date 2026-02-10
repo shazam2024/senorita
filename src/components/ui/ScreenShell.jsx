@@ -7,10 +7,10 @@ const bgByVariant = {
     'radial-gradient(1100px circle at 50% 15%, rgba(255,215,160,0.14) 0%, rgba(255,185,210,0.10) 40%, rgba(189,147,249,0.14) 70%, rgba(2,5,14,0.95) 100%)',
 };
 
-const ScreenShell = ({ children, variant = 'promise', allowScroll = true }) => {
+const ScreenShell = ({ children, variant = 'promise', allowScroll = false }) => {
   return (
     <div
-      className={`min-h-screen w-full flex items-center justify-center relative overflow-x-hidden ${
+      className={`h-screen w-full flex items-center justify-center relative overflow-x-hidden ${
         allowScroll ? 'overflow-y-auto' : 'overflow-y-hidden'
       } py-10 md:py-14`}
       style={{ background: bgByVariant[variant] || bgByVariant.promise }}

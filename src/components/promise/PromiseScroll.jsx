@@ -84,13 +84,13 @@ const PromiseScroll = ({ onSealed }) => {
   }, [play, stop]);
 
   useEffect(() => {
-    const t = window.setTimeout(() => setOpened(true), 250);
+    const t = window.setTimeout(() => setOpened(true), 150);
     return () => window.clearTimeout(t);
   }, []);
 
   useEffect(() => {
     if (!opened) return;
-    const t = window.setTimeout(() => setLineIndex(0), 700);
+    const t = window.setTimeout(() => setLineIndex(0), 400);
     return () => window.clearTimeout(t);
   }, [opened]);
 
@@ -108,7 +108,7 @@ const PromiseScroll = ({ onSealed }) => {
   return (
     <ScreenShell variant="promise" allowScroll={false}>
       <div className="absolute inset-0">
-        <ParticleField count={28} type="firefly" />
+        <ParticleField count={20} type="firefly" />
       </div>
 
       <div className="relative z-10 w-full max-w-3xl mx-auto px-4">
@@ -116,7 +116,7 @@ const PromiseScroll = ({ onSealed }) => {
           className="relative"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: 'easeOut' }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
         >
           <motion.div
             className="rounded-2xl border border-white/20 overflow-hidden"
@@ -136,7 +136,7 @@ const PromiseScroll = ({ onSealed }) => {
               <motion.h2
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.35 }}
+                transition={{ duration: 0.5, delay: 0.15 }}
                 className="text-3xl md:text-5xl font-playfair font-bold text-center"
                 style={{
                   color: 'rgba(255,255,255,0.92)',
@@ -219,7 +219,7 @@ const PromiseScroll = ({ onSealed }) => {
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 1.2 }}
+                  transition={{ delay: 0.6 }}
                   className="mt-4 text-sm font-poppins text-white/80"
                 >
                   Tap the heart seal

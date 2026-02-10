@@ -34,7 +34,7 @@ const MemoryGarden = ({ onReplay }) => {
   return (
     <ScreenShell variant="garden" allowScroll={false}>
       <div className="absolute inset-0">
-        <ParticleField count={34} type="firefly" />
+        <ParticleField count={20} type="firefly" />
       </div>
 
       <div className="absolute inset-0 pointer-events-none">
@@ -68,7 +68,7 @@ const MemoryGarden = ({ onReplay }) => {
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.0, ease: 'easeOut' }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
           className="glassmorphism rounded-3xl p-6 sm:p-8 md:p-12 border border-white/20"
         >
           <motion.p

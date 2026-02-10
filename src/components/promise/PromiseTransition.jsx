@@ -28,19 +28,19 @@ const PromiseTransition = ({ onDone }) => {
   return (
     <ScreenShell variant="promise">
       <div className="absolute inset-0">
-        <ParticleField count={26} type="glow" />
+        <ParticleField count={16} type="glow" />
       </div>
 
       <motion.div
         className="relative z-10 w-full max-w-3xl mx-auto px-4 sm:px-6 text-center"
-        initial={{ opacity: 0, scale: 0.98 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.2, ease: 'easeOut' }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
       >
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.0, delay: 0.3 }}
+          transition={{ duration: 0.4, delay: 0.05 }}
           className="text-2xl sm:text-3xl md:text-4xl font-playfair font-bold leading-tight"
           style={{
             color: 'rgba(255,255,255,0.92)',
@@ -90,21 +90,6 @@ const PromiseTransition = ({ onDone }) => {
                 💍
               </motion.span>
             </motion.button>
-
-            {!soundUnlocked && (
-              <motion.span
-                className="absolute left-1/2 -bottom-7 -translate-x-1/2 whitespace-nowrap px-3 py-1 rounded-full text-xs sm:text-sm font-poppins text-white/90 border border-white/20"
-                initial={{ opacity: 0, y: 4 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease: 'easeOut' }}
-                style={{
-                  background: 'rgba(0,0,0,0.25)',
-                  textShadow: '0 0 18px rgba(0,0,0,0.6)',
-                }}
-              >
-                Put your finger into the ring (tap)
-              </motion.span>
-            )}
           </span>
         </motion.p>
 
@@ -114,17 +99,24 @@ const PromiseTransition = ({ onDone }) => {
             if (!soundUnlocked) play({ fadeMs: 500 });
             onDone();
           }}
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.96 }}
-          className="mt-12 px-8 py-3 rounded-full font-poppins font-semibold text-white shadow-2xl border border-white/30 backdrop-blur-md"
+          disabled={!soundUnlocked}
+          whileHover={soundUnlocked ? { scale: 1.04 } : {}}
+          whileTap={soundUnlocked ? { scale: 0.96 } : {}}
+          className={`mt-12 px-8 py-3 rounded-full font-poppins font-semibold text-white shadow-2xl border backdrop-blur-md transition-all duration-300 ${
+            soundUnlocked
+              ? 'border-white/30 cursor-pointer'
+              : 'border-white/10 cursor-not-allowed opacity-70'
+          }`}
           style={{
-            background:
-              'linear-gradient(135deg, rgba(255,185,210,0.75) 0%, rgba(255,215,160,0.65) 45%, rgba(189,147,249,0.6) 100%)',
-            boxShadow:
-              '0 18px 50px rgba(255,185,210,0.25), 0 0 40px rgba(255,215,160,0.25)',
+            background: soundUnlocked
+              ? 'linear-gradient(135deg, rgba(255,185,210,0.75) 0%, rgba(255,215,160,0.65) 45%, rgba(189,147,249,0.6) 100%)'
+              : 'linear-gradient(135deg, rgba(255,185,210,0.35) 0%, rgba(255,215,160,0.3) 45%, rgba(189,147,249,0.25) 100%)',
+            boxShadow: soundUnlocked
+              ? '0 18px 50px rgba(255,185,210,0.25), 0 0 40px rgba(255,215,160,0.25)'
+              : '0 8px 20px rgba(0,0,0,0.15)',
           }}
         >
-          Continue →
+          {soundUnlocked ? 'Continue →' : 'put your beautiful finger into the ring (tap)'}
         </motion.button>
       </motion.div>
     </ScreenShell>
