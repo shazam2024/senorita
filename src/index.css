@@ -8,6 +8,22 @@ body {
   background: linear-gradient(135deg, #fce4ec 0%, #e1bee7 25%, #ffe0b2 50%, #f8bbd0 75%, #e8f5e8 100%);
   min-height: 100vh;
   overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
 }
 
 * {
@@ -35,4 +51,76 @@ body {
   border-radius: 50%;
   animation: sparkle 2s ease-in-out infinite;
   pointer-events: none;
+}
+
+.candle-flicker {
+  background:
+    radial-gradient(220px 120px at 12% 80%, rgba(255, 215, 160, 0.26) 0%, rgba(255, 215, 160, 0.0) 65%),
+    radial-gradient(260px 140px at 50% 85%, rgba(255, 185, 210, 0.16) 0%, rgba(255, 185, 210, 0.0) 68%),
+    radial-gradient(240px 140px at 86% 78%, rgba(216, 180, 254, 0.16) 0%, rgba(216, 180, 254, 0.0) 70%);
+  filter: blur(2px);
+  opacity: 0.7;
+  animation: candle-flicker 3.8s ease-in-out infinite;
+}
+
+.spark-burst {
+  width: 140px;
+  height: 140px;
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,215,160,0.65) 28%, rgba(255,185,210,0.25) 55%, rgba(255,185,210,0) 72%);
+  box-shadow:
+    0 0 30px rgba(255, 215, 160, 0.45),
+    0 0 60px rgba(255, 185, 210, 0.25);
+  animation: spark-burst 0.75s ease-out forwards;
+}
+
+.scroll-dissolve {
+  position: absolute;
+  inset: -40px;
+  background:
+    radial-gradient(400px 240px at 25% 35%, rgba(255, 215, 160, 0.32) 0%, rgba(255, 215, 160, 0) 70%),
+    radial-gradient(420px 260px at 70% 55%, rgba(216, 180, 254, 0.22) 0%, rgba(216, 180, 254, 0) 70%),
+    radial-gradient(420px 260px at 45% 75%, rgba(255, 185, 210, 0.20) 0%, rgba(255, 185, 210, 0) 70%);
+  filter: blur(1px);
+  animation: scroll-dissolve 0.9s ease-out forwards;
+}
+
+@keyframes candle-flicker {
+  0%, 100% {
+    opacity: 0.55;
+    transform: translateY(0px);
+  }
+  50% {
+    opacity: 0.85;
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes spark-burst {
+  0% {
+    transform: scale(0.35);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes scroll-dissolve {
+  0% {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.04);
+  }
 }

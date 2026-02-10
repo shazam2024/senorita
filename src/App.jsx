@@ -1,45 +1,37 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import Envelope from './components/Envelope';
-import Letter from './components/Letter';
-import FinalMessage from './components/FinalMessage';
+import {
+  PromiseTransition,
+  PromiseScroll,
+  FinalEmotional,
+  MemoryGarden,
+} from './components/promise';
 
 const screens = {
-  ENVELOPE: 'envelope',
-  LETTER: 'letter',
-  FINAL: 'final',
+  PROMISE_TRANSITION: 'promise_transition',
+  PROMISE_SCROLL: 'promise_scroll',
+  FINAL_EMOTIONAL: 'final_emotional',
+  MEMORY_GARDEN: 'memory_garden',
 };
 
 function App() {
-  const [currentScreen, setCurrentScreen] = useState(screens.ENVELOPE);
+  const [currentScreen, setCurrentScreen] = useState(screens.PROMISE_TRANSITION);
 
-  const handleEnvelopeOpen = () => {
-    setCurrentScreen(screens.LETTER);
+  const handlePromiseTransitionDone = () => {
+    setCurrentScreen(screens.PROMISE_SCROLL);
   };
 
-  const handleLetterContinue = () => {
-    setCurrentScreen(screens.FINAL);
+  const handlePromisesSealed = () => {
+    setCurrentScreen(screens.FINAL_EMOTIONAL);
+  };
+
+  const handleHoldMyHand = () => {
+    setCurrentScreen(screens.MEMORY_GARDEN);
   };
 
   const handleReplay = () => {
-    setCurrentScreen(screens.ENVELOPE);
+    setCurrentScreen(screens.PROMISE_TRANSITION);
   };
-
-  // Background music (optional - will need audio file)
-  useEffect(() => {
-    if (currentScreen === screens.FINAL) {
-      // Auto-play background music when final screen appears
-      // Note: Browser policies may prevent auto-play without user interaction
-      const audio = new Audio('/romantic-music.mp3');
-      audio.loop = true;
-      audio.volume = 0.3;
-      
-      // Try to play (may be blocked by browser)
-      audio.play().catch(() => {
-        console.log('Audio autoplay blocked by browser');
-      });
-    }
-  }, [currentScreen]);
 
   const pageVariants = {
     initial: {
@@ -63,7 +55,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-pastel-gradient overflow-hidden">
+    <div className="min-h-screen bg-pastel-gradient">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentScreen}
@@ -73,14 +65,17 @@ function App() {
           variants={pageVariants}
           transition={pageTransition}
         >
-          {currentScreen === screens.ENVELOPE && (
-            <Envelope onOpen={handleEnvelopeOpen} />
+          {currentScreen === screens.PROMISE_TRANSITION && (
+            <PromiseTransition onDone={handlePromiseTransitionDone} />
           )}
-          {currentScreen === screens.LETTER && (
-            <Letter onContinue={handleLetterContinue} />
+          {currentScreen === screens.PROMISE_SCROLL && (
+            <PromiseScroll onSealed={handlePromisesSealed} />
           )}
-          {currentScreen === screens.FINAL && (
-            <FinalMessage onReplay={handleReplay} />
+          {currentScreen === screens.FINAL_EMOTIONAL && (
+            <FinalEmotional name="Senorita" onNext={handleHoldMyHand} />
+          )}
+          {currentScreen === screens.MEMORY_GARDEN && (
+            <MemoryGarden onReplay={handleReplay} />
           )}
         </motion.div>
       </AnimatePresence>
