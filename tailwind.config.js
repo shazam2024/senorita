@@ -4,6 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -17,6 +18,7 @@ export default {
         'pulse-slow': 'pulse 4s ease-in-out infinite',
         'sparkle': 'sparkle 2s ease-in-out infinite',
         'heart-rise': 'heart-rise 4s ease-in-out infinite',
+        'glow': 'glow 2s ease-in-out infinite',
       },
       keyframes: {
         float: {
@@ -31,15 +33,28 @@ export default {
           '0%': { transform: 'translateY(0px) scale(1)', opacity: '1' },
           '100%': { transform: 'translateY(-100px) scale(0.5)', opacity: '0' },
         },
+        glow: {
+          '0%, 100%': { boxShadow: '0 0 20px rgba(236, 72, 153, 0.4)' },
+          '50%': { boxShadow: '0 0 40px rgba(236, 72, 153, 0.8)' },
+        },
       },
       backgroundImage: {
         'pastel-gradient': 'linear-gradient(135deg, #fce4ec 0%, #e1bee7 25%, #ffe0b2 50%, #f8bbd0 75%, #e8f5e8 100%)',
         'card-gradient': 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,240,245,0.9) 100%)',
+        'senorita-gradient': 'linear-gradient(180deg, #fdf2f8 0%, #faf5ff 50%, #fce7f3 100%)',
       },
       boxShadow: {
         'soft': '0 10px 40px rgba(0,0,0,0.1)',
         'glow': '0 0 30px rgba(255,182,193,0.5)',
         'romantic': '0 8px 32px rgba(255,182,193,0.3)',
+      },
+      colors: {
+        'senorita': {
+          pink: '#ec4899',
+          purple: '#8b5cf6',
+          rose: '#f43f5e',
+          amber: '#f59e0b',
+        },
       },
     },
   },
